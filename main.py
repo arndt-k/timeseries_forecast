@@ -134,17 +134,13 @@ if __name__=="__main__":
     """
     
     # %% compare models
-    a_temp_only_timestamp ="2024-08-22203120.574251"
-    univariate_timestamp = "2024-08-21102948.990511"
-    w_vtemp_timestamp = '2024-08-22181528.922987'
     intrv = dataset.seq_length+max(dataset.lag_list)
     fig, ax = plt.subplots(3,transformer_model.config.input_size,figsize=(10,10), sharex=True)
-    timestamp = w_vtemp_timestamp
+    
     for j,saved_name in enumerate([x+timestamp for x in ["FCNN", "LSTM", "Trafo"]]):
         model = torch.load(os.path.join(os.getcwd(),"saved_models",saved_name))
         model.eval()
         model = model.cpu()
-        
         
         try: 
             stack = np.load(os.path.join(os.getcwd(),"results",saved_name+".npz")) 
